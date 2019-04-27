@@ -19,12 +19,18 @@ const app = new Vue({
     beta: null,
     gamma: null,
     heading: null,
-    direction: null,
+    direction: '',
+  },
+  mounted() {
+    this.$el.style.height = `${document.documentElement.clientHeight}px`;
   },
 });
 
 
 const htmlElement = document.querySelector('html');
+
+
+const compassTolerance = 10;
 
 function logDirections(...args) {
   const [event] = args;
@@ -33,16 +39,21 @@ function logDirections(...args) {
 
 
   Object.entries(coords).forEach(([name, value]) => { coords[name] = value.toFixed(); });
+
   coords.heading = 360 - coords.alpha;
 
-  const { heading } = coords;
 
-  if (heading > 359 || heading < 1) {
+  // eslint-disable-next-line no-undef
+  if (coords.heading > 360 - compassTolerance || coords.heading < 0 + compassTolerance) {
     coords.direction = 'N';
-  } else if (heading > 179 && heading < 181) {
+  } else if (coords.heading > 180 - compassTolerance && coords.heading < 180 + compassTolerance) {
     coords.direction = 'S';
+  } else if (coords.heading > 90 - compassTolerance && coords.heading < 90 + compassTolerance) {
+    coords.direction = 'E';
+  } else if (coords.heading > 270 - compassTolerance && coords.heading < 270 + compassTolerance) {
+    coords.direction = 'W';
   }
-  htmlElement.style.setProperty('--rotation', `${heading}deg`);
+  htmlElement.style.setProperty('--rotation', `${coords.heading + 90}deg`);
   Object.assign(app, coords);
 }
-window.addEventListener('deviceorientation', throttle(logDirections, 100));
+window.addEventListener('deviceorientation', throttle(logDirections, 50));

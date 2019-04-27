@@ -1,9 +1,24 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand:700');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html {
+  font-family: Quicksand;
+}
+
+#app {
+  display: flex;
+
+  height: 100vh;
+
+  justify-content: center;
+
+  align-items: center;
+}
 
 .circle {
   $circle-size: 100px;
@@ -23,8 +38,32 @@
     top: 50%;
     left: 0%;
     border-radius: 100%;
-    transform: translateX(-100%) translateY(-50%) rotate(var(--rotation));
-    transform-origin: calc(100% + #{$circle-size / 2}) $pointer-size / 2;
+    transform: translateY(-50%) rotate(var(--rotation));
+    transform-origin: #{$circle-size / 2} $pointer-size / 2;
+  }
+
+  .n {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .s {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+  }
+  .e {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .w {
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    transform: translate(0%, -50%);
   }
 }
 
