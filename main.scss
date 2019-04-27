@@ -21,7 +21,7 @@ html {
 }
 
 .circle {
-  $circle-size: 100px;
+  $circle-size: 200px;
   margin: 0 auto;
   background-color: cyan;
   width: $circle-size;
@@ -40,6 +40,7 @@ html {
     border-radius: 100%;
     transform: translateY(-50%) rotate(var(--rotation));
     transform-origin: #{$circle-size / 2} $pointer-size / 2;
+    transition: transform 250ms;
   }
 
   .n {

@@ -26,6 +26,18 @@ const app = new Vue({
   },
 });
 
+let rot;
+
+function getRotation(nR) {
+  let aR;
+  rot = rot || 0; // if rot undefined or 0, make 0, else rot
+  aR = rot % 360;
+  if (aR < 0) { aR += 360; }
+  if (aR < 180 && (nR > (aR + 180))) { rot -= 360; }
+  if (aR >= 180 && (nR <= (aR - 180))) { rot += 360; }
+  rot += (nR - aR);
+  return rot;
+}
 
 const htmlElement = document.querySelector('html');
 
@@ -53,7 +65,10 @@ function logDirections(...args) {
   } else if (coords.heading > 270 - compassTolerance && coords.heading < 270 + compassTolerance) {
     coords.direction = 'W';
   }
-  htmlElement.style.setProperty('--rotation', `${coords.heading + 90}deg`);
+
+  let degreesRotation = getRotation(coords.heading + 90);
+
+  htmlElement.style.setProperty('--rotation', `${degreesRotation}deg`);
   Object.assign(app, coords);
 }
 window.addEventListener('deviceorientation', throttle(logDirections, 50));
