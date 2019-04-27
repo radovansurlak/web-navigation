@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  --rotation: 180deg;
+}
+
+.circle {
+  background-color: cyan;
+  width: 200px;
+  height: 200px;
+  border-radius: 200px;
+  position: relative;
+}
+
+.pointer {
+  height: 50%;
+  width: 5%;
+  background-color: blue;
+  position: absolute;
+  left: 47.5%;
+  top: 0;
+  transform-origin: bottom;
+  transform: rotate(var(--rotation));
+}
