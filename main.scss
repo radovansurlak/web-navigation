@@ -4,25 +4,27 @@
   box-sizing: border-box;
 }
 
-html {
-  --rotation: 180deg;
-}
 
 .circle {
+  $circle-size: 100px;
+  margin: 0 auto;
   background-color: cyan;
-  width: 200px;
-  height: 200px;
-  border-radius: 200px;
+  width: $circle-size;
+  height: $circle-size;
+  border-radius: $circle-size;
   position: relative;
+  
+  .pointer {
+    $pointer-size: 20px;
+    position: absolute;
+    background-color: red;
+    width: $pointer-size;
+    height: $pointer-size;
+    top: 50%;
+    left: 0%;
+    border-radius: 100%;
+    transform: translateX(-100%) translateY(-50%) rotate(var(--rotation));
+    transform-origin: calc(100% + #{$circle-size / 2}) $pointer-size / 2;
+  }
 }
 
-.pointer {
-  height: 50%;
-  width: 5%;
-  background-color: blue;
-  position: absolute;
-  left: 47.5%;
-  top: 0;
-  transform-origin: bottom;
-  transform: rotate(var(--rotation));
-}
